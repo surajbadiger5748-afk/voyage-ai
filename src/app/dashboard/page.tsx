@@ -10,7 +10,7 @@ import {
   Compass,
   Map as MapIcon,
   Calendar,
-  Wallet,
+ Wallet,
   CheckCircle,
   Lightbulb,
   MapPin,
@@ -394,7 +394,7 @@ export default function DashboardPage() {
 
                             {(day.activities || []).map(
                               (
-                                activity: string,
+                                activity: any,
                                 activityIndex: number
                               ) => (
                                 <div
@@ -405,9 +405,35 @@ export default function DashboardPage() {
                                     <CheckCircle className="h-4 w-4 text-primary" />
                                   </div>
 
-                                  <p className="leading-relaxed font-medium">
-                                    {activity}
-                                  </p>
+                                  <div className="space-y-2 flex-1">
+
+                                    <div className="flex items-center gap-2 flex-wrap">
+
+                                      {activity?.time && (
+                                        <span className="rounded-full bg-primary/10 px-2 py-1 text-xs font-medium text-primary">
+                                          {activity.time}
+                                        </span>
+                                      )}
+
+                                      <p className="font-semibold">
+                                        {activity?.title || "Activity"}
+                                      </p>
+
+                                    </div>
+
+                                    {activity?.description && (
+                                      <p className="text-sm text-muted-foreground leading-relaxed">
+                                        {activity.description}
+                                      </p>
+                                    )}
+
+                                    {activity?.location && (
+                                      <p className="text-xs text-primary">
+                                        📍 {activity.location}
+                                      </p>
+                                    )}
+
+                                  </div>
                                 </div>
                               )
                             )}
