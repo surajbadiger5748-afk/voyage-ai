@@ -488,7 +488,7 @@ export default function DashboardPage() {
                     loading="lazy"
                     allowFullScreen
                     src={`https://www.google.com/maps?q=${encodeURIComponent(
-                      request.destination
+                      request.destination || "Paris"
                     )}&output=embed`}
                   />
 
