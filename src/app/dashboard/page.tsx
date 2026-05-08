@@ -10,7 +10,7 @@ import {
   Compass,
   Map as MapIcon,
   Calendar,
- Wallet,
+  Wallet,
   CheckCircle,
   Lightbulb,
   MapPin,
@@ -108,7 +108,7 @@ export default function DashboardPage() {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8 md:px-8 h-full flex flex-col">
+    <main className="container mx-auto px-4 py-8 md:px-8 h-full flex flex-col">
       <div className="flex flex-col xl:flex-row gap-8 flex-1">
 
         {/* SIDEBAR */}
@@ -124,11 +124,16 @@ export default function DashboardPage() {
 
               {/* Destination */}
               <div className="space-y-2">
-                <label className="text-sm font-medium">
+                <label
+                  htmlFor="destination"
+                  className="text-sm font-medium"
+                >
                   Destination
                 </label>
 
                 <input
+                  id="destination"
+                  aria-label="Destination"
                   type="text"
                   value={request.destination || ""}
                   onChange={(e) =>
@@ -147,11 +152,16 @@ export default function DashboardPage() {
               <div className="grid grid-cols-2 gap-4">
 
                 <div className="space-y-2">
-                  <label className="text-sm font-medium">
+                  <label
+                    htmlFor="days"
+                    className="text-sm font-medium"
+                  >
                     Days
                   </label>
 
                   <input
+                    id="days"
+                    aria-label="Trip duration in days"
                     type="number"
                     min={1}
                     max={30}
@@ -168,11 +178,16 @@ export default function DashboardPage() {
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-sm font-medium">
+                  <label
+                    htmlFor="budget"
+                    className="text-sm font-medium"
+                  >
                     Budget
                   </label>
 
                   <select
+                    id="budget"
+                    aria-label="Budget selection"
                     value={request.budget || "moderate"}
                     onChange={(e) =>
                       updateField(
@@ -195,11 +210,16 @@ export default function DashboardPage() {
 
               {/* Travel Style */}
               <div className="space-y-2">
-                <label className="text-sm font-medium">
+                <label
+                  htmlFor="travelStyle"
+                  className="text-sm font-medium"
+                >
                   Travel Style
                 </label>
 
                 <select
+                  id="travelStyle"
+                  aria-label="Travel style"
                   value={request.travelStyle || "balanced"}
                   onChange={(e) =>
                     updateField(
@@ -229,6 +249,7 @@ export default function DashboardPage() {
 
               {/* Button */}
               <Button
+                aria-label="Generate AI itinerary"
                 className="w-full h-12 rounded-xl text-base bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition-all shadow-lg"
                 onClick={handleGenerate}
                 disabled={
@@ -447,6 +468,33 @@ export default function DashboardPage() {
                 </div>
               </div>
 
+              {/* GOOGLE MAP */}
+              <div className="rounded-3xl border border-border bg-card p-8 shadow-sm">
+
+                <div className="flex items-center gap-3 mb-6">
+                  <MapPin className="h-6 w-6 text-primary" />
+
+                  <h2 className="text-2xl font-bold">
+                    Explore Destination
+                  </h2>
+                </div>
+
+                <div className="overflow-hidden rounded-2xl border border-border">
+
+                  <iframe
+                    title="destination-map"
+                    aria-label="Destination map"
+                    className="w-full h-[380px]"
+                    loading="lazy"
+                    allowFullScreen
+                    src={`https://www.google.com/maps?q=${encodeURIComponent(
+                      request.destination
+                    )}&output=embed`}
+                  />
+
+                </div>
+              </div>
+
               {/* TIPS */}
               <div className="rounded-3xl border border-border bg-gradient-to-br from-secondary/10 to-primary/10 p-8 shadow-sm">
 
@@ -488,6 +536,6 @@ export default function DashboardPage() {
 
         </section>
       </div>
-    </div>
+    </main>
   );
 }
